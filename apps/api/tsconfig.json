@@ -1,4 +1,10 @@
 {
-  "extends": "@repo/typescript-config/base.json",
+  "extends": "@repo/typescript-config/api.json",
   "include": ["src"]
+  "compilerOptions": {
+    "paths": {
+      "#/*": ["./src/*"]
+    }
+  }
+
 }
