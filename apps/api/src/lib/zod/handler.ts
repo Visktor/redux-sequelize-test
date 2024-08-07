@@ -1,9 +1,16 @@
-import { Request, Handler, NextFunction } from "express";
+import { Request, Response, Handler, NextFunction } from "express";
 import { z } from "zod";
 import { isZodError } from "./isZodError";
 
+type KeysToCheck = keyof Pick<Request, 'body' | 'headers' | 'query' | 'params'>
+
+/** Validates request keys and returns the handler function 
+ *  with infered types from the schema validation.
+ * */
 export function zodHandler<
-  T extends Partial<{ [key in keyof Request]: z.ZodRawShape }>,
+  T extends Partial<{
+    [key in KeysToCheck]: z.ZodRawShape
+  }>,
 >({
   schema,
   message,
@@ -19,15 +26,13 @@ export function zodHandler<
     },
     res: Response,
     next: NextFunction,
-  ) => any;
+  ) => unknown;
 }): Handler {
   return async (req, res, next) => {
     try {
-      for (let k in schema) {
+      for (const k in schema) {
         const keySchema = schema[k] as z.ZodRawShape;
-
-        // @ts-expect-error
-        req[k] = z.object(keySchema).parse(req[k as keyof Request]);
+        req[k as KeysToCheck] = z.object(keySchema).parse(req[k as keyof Request]);
       }
 
       return handler(
@@ -36,11 +41,10 @@ export function zodHandler<
           ? z.infer<z.ZodObject<T[k]>>
           : never;
         },
-        //@ts-expect-error
         res,
         next,
       );
-    } catch (err: any) {
+    } catch (err) {
       if (!isZodError(err)) {
         return res.status(400).json({
           success: false,
@@ -49,7 +53,12 @@ export function zodHandler<
         });
       }
 
-      const zodCustomMessage = `${err.issues}`;
+      const zodCustomErrorMessage = `${err.issues.map(issue => `path: ${issue.path.join('.')}, code:${issue.code}`)}`;
+      return res.status(400).json({
+        success: false,
+        message: err.message,
+        error: zodCustomErrorMessage,
+      })
     }
   };
 }

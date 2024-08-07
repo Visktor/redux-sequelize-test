@@ -1,23 +1,15 @@
-import { zodHandler } from "#/lib/zod/handler";
+import { UserService } from "#/services/UserService";
 import { Router } from "express";
-import { z } from "zod";
 
 const appRouter = Router();
 
 appRouter.get("/", async (_, res) => res.status(200).send("hello world"));
 
-appRouter.get(
-  "/users/getAll",
-  zodHandler({
-    schema: {
-      query: {
-        seila: z.string(),
-      },
-    },
-    handler: async (req, res) => {
-      const { seila } = req.query;
-    },
-  }),
-);
+appRouter.get("/users/getAll", async (_, res) => {
+  const userService = new UserService();
+  const result = await userService.getMany();
+  res.status(result.success ? 200 : 500).json(result);
+});
+
 
 export { appRouter };

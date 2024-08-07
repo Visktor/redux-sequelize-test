@@ -41,7 +41,7 @@ export class UserService extends AbstractService {
         },
         {
           where: {
-            id: properties.id,
+            id,
           },
         },
       );
@@ -56,22 +56,19 @@ export class UserService extends AbstractService {
     } catch (err) {
       return {
         success: false,
-        error: "",
+        error: err,
       };
     }
   }
 
-  public async getMany({
-    attributes,
-    where,
-  }: {
+  public async getMany(cfg?: {
     attributes?: (keyof UserFields)[];
-    where: WhereOptions<User>;
+    where?: WhereOptions<User>;
   }): Promise<OperationResult<User[]>> {
     try {
       const users = await User.findAll({
-        where,
-        attributes: attributes?.length ? attributes : undefined,
+        where: cfg?.where,
+        attributes: cfg?.attributes?.length ? cfg.attributes : undefined,
       });
 
       return {
