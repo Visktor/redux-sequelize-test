@@ -1,3 +1,5 @@
+// TODO: will become a function that returns request config object
+// with default headers, login token and other auth info.
 const apiDefaults: RequestInit = {
   headers: {
     "Content-Type": "application/json",
