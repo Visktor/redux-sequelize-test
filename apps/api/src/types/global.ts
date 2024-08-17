@@ -15,3 +15,5 @@ export type OperationResult<T = any> =
       message?: string;
       error: any;
     };
+
+export type ServiceResult<T = any> = Promise<OperationResult<T>>;
