@@ -18,7 +18,18 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "#/*": ["src/*"],
+      "#/components/*": ["src/components/*"],
+      "#/assets/*": ["src/assets/*"],
+      "#/pages/*": ["src/pages/*"],
+      "#/lib/*": ["src/lib/*"],
+      "#/context/*": ["src/context/*"]
+    }
   },
+
   "include": ["src"]
 }

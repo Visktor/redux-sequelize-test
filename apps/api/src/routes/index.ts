@@ -11,5 +11,4 @@ appRouter.get("/users/getAll", async (_, res) => {
   res.status(result.success ? 200 : 500).json(result);
 });
 
-
 export { appRouter };

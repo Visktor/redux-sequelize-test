@@ -1,8 +1,8 @@
 import { AbstractService } from "#/core/service";
 import { Todo, TodoFields } from "#/database/models/todo";
-import logger from "#/logger";
 import { OperationResult } from "#/types/global";
 import { AsOptional } from "#/types/util";
+import logger from "logger";
 import { WhereOptions } from "sequelize";
 
 export class TodoService extends AbstractService {

@@ -1,4 +1,4 @@
-import logger from "#/logger";
+import logger from "logger";
 
 export function safeJsonParse(thing: any): any | null {
   try {

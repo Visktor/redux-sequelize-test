@@ -1,4 +1,4 @@
-import logger from "#/logger";
+import logger from "logger";
 
 export abstract class AbstractService {
   protected log(title: string, info: unknown) {

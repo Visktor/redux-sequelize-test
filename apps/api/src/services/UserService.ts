@@ -1,6 +1,6 @@
 import { AbstractService } from "#/core/service";
 import { User, UserFields } from "#/database/models/user";
-import logger from "#/logger";
+import logger from "logger";
 import { OperationResult } from "#/types/global";
 import { AsOptional } from "#/types/util";
 import { WhereOptions } from "sequelize";

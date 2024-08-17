@@ -2,9 +2,18 @@
   "extends": "@repo/typescript-config/api.json",
   "include": ["src"],
   "compilerOptions": {
+    "baseUrl": "./src",
     "paths": {
-      "#/*": ["./src/*"]
+      "#/core/*": ["core/*"],
+      "#/database/*": ["database/*"],
+      "#/lib/*": ["lib/*"],
+      "#/routes/*": ["routes/*"],
+      "#/services/*": ["services/*"],
+      "#/types/*": ["types/*"],
+      "#/util/*": ["util/*"]
     }
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
   }
-
 }

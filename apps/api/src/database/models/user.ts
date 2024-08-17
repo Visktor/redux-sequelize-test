@@ -1,7 +1,5 @@
 import { Model, DataTypes, InferAttributes } from "sequelize";
 import { sequelize } from "../../lib/sequelize/config";
-import { Todo } from "./todo";
-
 export type UserFields = InferAttributes<User>;
 
 export class User extends Model {
@@ -39,5 +37,3 @@ User.init(
     },
   },
 );
-
-User.hasMany(Todo);

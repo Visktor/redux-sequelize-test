@@ -1,6 +1,5 @@
 import { Model, DataTypes, InferAttributes } from "sequelize";
 import { sequelize } from "../../lib/sequelize/config";
-import { User } from "./user";
 
 export class Todo extends Model {
   declare id: number;
@@ -31,5 +30,3 @@ Todo.init(
     sequelize,
   },
 );
-
-Todo.belongsTo(User);
