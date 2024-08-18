@@ -1,15 +1,16 @@
 import countSlice from "#/context/count";
-
 import { loadSlice } from "#/context/load";
 import { userSlice } from "#/context/user";
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
+import loginReducer from "#/context/login";
 
 const rootReducer = combineSlices({
   user: userSlice.reducer,
   load: loadSlice.reducer,
   count: countSlice.reducer,
+  login: loginReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

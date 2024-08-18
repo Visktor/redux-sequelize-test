@@ -1,38 +1,16 @@
-import "./App.css";
-import { useAppDispatch, useAppSelector } from "./lib/redux/hooks";
-import { incrementByAmount, decrementByAmount } from "./context/count";
-import { useState } from "react";
+import { RouterProvider } from "react-router-dom";
+import { appRouter } from "./lib/router";
+import { ChakraProvider } from "@chakra-ui/react";
+import { StrictMode } from "react";
+import { chakraLightTheme } from "./lib/chakra/themes";
 
 function App() {
-  const count = useAppSelector((state) => state.count.value);
-  const dispatch = useAppDispatch();
-  const [amount, setAmount] = useState(0);
-
   return (
-    <>
-      <div>{count}</div>
-      <input
-        type="text"
-        value={amount}
-        onChange={(e) => {
-          setAmount(Number(e.target.value));
-        }}
-      />
-      <button
-        onClick={() => {
-          dispatch(incrementByAmount(amount));
-        }}
-      >
-        increment
-      </button>
-      <button
-        onClick={() => {
-          dispatch(decrementByAmount(amount));
-        }}
-      >
-        decrement
-      </button>
-    </>
+    <StrictMode>
+      <ChakraProvider theme={chakraLightTheme} resetCSS>
+        <RouterProvider router={appRouter} />
+      </ChakraProvider>
+    </StrictMode>
   );
 }
 
